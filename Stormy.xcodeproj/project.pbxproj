@@ -12,6 +12,7 @@
 		F4383F5C1CE25A1A0057660F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4383F5A1CE25A1A0057660F /* Main.storyboard */; };
 		F4383F5E1CE25A1A0057660F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4383F5D1CE25A1A0057660F /* Assets.xcassets */; };
 		F4383F611CE25A1A0057660F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4383F5F1CE25A1A0057660F /* LaunchScreen.storyboard */; };
+		F4383F6B1CE25E610057660F /* CurrentWeather.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4383F6A1CE25E610057660F /* CurrentWeather.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		F4383F5D1CE25A1A0057660F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4383F601CE25A1A0057660F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4383F621CE25A1A0057660F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4383F6A1CE25E610057660F /* CurrentWeather.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CurrentWeather.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				F4383F5D1CE25A1A0057660F /* Assets.xcassets */,
 				F4383F5F1CE25A1A0057660F /* LaunchScreen.storyboard */,
 				F4383F621CE25A1A0057660F /* Info.plist */,
+				F4383F6A1CE25E610057660F /* CurrentWeather.plist */,
 			);
 			path = Stormy;
 			sourceTree = "<group>";
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4383F611CE25A1A0057660F /* LaunchScreen.storyboard in Resources */,
+				F4383F6B1CE25E610057660F /* CurrentWeather.plist in Resources */,
 				F4383F5E1CE25A1A0057660F /* Assets.xcassets in Resources */,
 				F4383F5C1CE25A1A0057660F /* Main.storyboard in Resources */,
 			);
@@ -287,6 +291,7 @@
 				F4383F671CE25A1A0057660F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
