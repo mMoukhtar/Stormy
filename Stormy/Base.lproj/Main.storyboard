@@ -47,30 +47,73 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="2vp-0g-JCd">
+                                <rect key="frame" x="190" y="108" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="jnD-na-u7h"/>
+                                    <constraint firstAttribute="width" constant="60" id="llQ-QL-Gsd"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ej-E6-tgu">
+                                <rect key="frame" x="256" y="126" width="150" height="24"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POM-A6-1gp">
+                                <rect key="frame" x="256" y="514" width="88" height="26"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISN-Jm-600">
+                                <rect key="frame" x="279" y="53" width="43" height="43"/>
+                                <state key="normal" image="refresh"/>
+                                <connections>
+                                    <action selector="btnRefreshTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CeW-ha-wNh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="ISN-Jm-600" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2EZ-cO-2ld"/>
+                            <constraint firstItem="ISN-Jm-600" firstAttribute="top" relation="greaterThanOrEqual" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="3A5-vR-5iQ"/>
+                            <constraint firstItem="6Zh-PM-J9T" firstAttribute="top" secondItem="2vp-0g-JCd" secondAttribute="bottom" priority="250" constant="38" id="3zj-tL-TRB"/>
+                            <constraint firstItem="7ej-E6-tgu" firstAttribute="leading" secondItem="2vp-0g-JCd" secondAttribute="trailing" constant="6" id="4zQ-9h-VOa"/>
+                            <constraint firstItem="POM-A6-1gp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6aL-ae-aYg"/>
+                            <constraint firstItem="2vp-0g-JCd" firstAttribute="top" secondItem="ISN-Jm-600" secondAttribute="bottom" constant="12" id="8r5-jK-1sC"/>
+                            <constraint firstItem="POM-A6-1gp" firstAttribute="leading" secondItem="cIW-As-UTY" secondAttribute="trailing" constant="-6" id="FqO-Mp-UmT"/>
                             <constraint firstItem="cIW-As-UTY" firstAttribute="top" secondItem="6H7-U9-a8j" secondAttribute="bottom" constant="9" id="Lrn-qn-7XB"/>
+                            <constraint firstItem="7ej-E6-tgu" firstAttribute="top" secondItem="ISN-Jm-600" secondAttribute="bottom" constant="30" id="Lti-dJ-qlw"/>
+                            <constraint firstItem="6Zh-PM-J9T" firstAttribute="top" relation="lessThanOrEqual" secondItem="7ej-E6-tgu" secondAttribute="bottom" priority="250" constant="2000" id="PwK-R6-tKk"/>
+                            <constraint firstItem="2vp-0g-JCd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="SKP-yU-7wN"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="POM-A6-1gp" secondAttribute="bottom" priority="250" constant="60" id="XAG-rO-Vu4"/>
                             <constraint firstItem="6Zh-PM-J9T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XdO-iP-yB6"/>
                             <constraint firstItem="cCJ-V2-RQS" firstAttribute="centerX" secondItem="D9Y-6m-f3d" secondAttribute="centerX" constant="2" id="YEe-iO-77B"/>
                             <constraint firstItem="D9Y-6m-f3d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="80" id="a0c-0d-kek"/>
                             <constraint firstItem="cCJ-V2-RQS" firstAttribute="top" secondItem="D9Y-6m-f3d" secondAttribute="bottom" constant="9" id="brZ-qI-nCt"/>
+                            <constraint firstItem="POM-A6-1gp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cIW-As-UTY" secondAttribute="bottom" constant="20" id="gjF-6d-Hya"/>
                             <constraint firstItem="6H7-U9-a8j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="65" id="htH-uz-Dj3"/>
                             <constraint firstItem="cIW-As-UTY" firstAttribute="centerX" secondItem="6H7-U9-a8j" secondAttribute="centerX" id="io8-oJ-i58"/>
                             <constraint firstItem="D9Y-6m-f3d" firstAttribute="top" secondItem="6Zh-PM-J9T" secondAttribute="bottom" constant="6.5" id="kN3-BF-5C5"/>
                             <constraint firstItem="6Zh-PM-J9T" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="lk6-3z-OEd"/>
                             <constraint firstItem="6H7-U9-a8j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-62.5" id="nXe-me-TJL"/>
+                            <constraint firstItem="7ej-E6-tgu" firstAttribute="top" secondItem="ISN-Jm-600" secondAttribute="bottom" constant="30" id="ock-78-hGv"/>
                             <constraint firstItem="6H7-U9-a8j" firstAttribute="top" secondItem="6Zh-PM-J9T" secondAttribute="bottom" constant="6.5" id="xH3-gt-I6h"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="htH-uz-Dj3"/>
+                                <exclude reference="FqO-Mp-UmT"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="imgCurrentWeatherIcon" destination="2vp-0g-JCd" id="M4a-7U-b9g"/>
                         <outlet property="lblCurrentHumedity" destination="cIW-As-UTY" id="Yfx-M8-T9g"/>
+                        <outlet property="lblCurrentLocation" destination="7ej-E6-tgu" id="p5R-Vu-ONS"/>
                         <outlet property="lblCurrentRainPercent" destination="cCJ-V2-RQS" id="Cq3-gK-473"/>
+                        <outlet property="lblCurrentSummary" destination="POM-A6-1gp" id="wAA-b9-5kn"/>
                         <outlet property="lblCurrentTemperature" destination="6Zh-PM-J9T" id="Rxm-rT-Z1M"/>
                     </connections>
                 </viewController>
@@ -78,4 +121,8 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="default" width="30" height="30"/>
+        <image name="refresh" width="43" height="43"/>
+    </resources>
 </document>
