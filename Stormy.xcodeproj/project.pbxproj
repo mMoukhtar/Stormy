@@ -16,6 +16,7 @@
 		F4383F6E1CE25ECE0057660F /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4383F6D1CE25ECE0057660F /* CurrentWeather.swift */; };
 		F458B7271CE47A9500EFAEE3 /* NetworkOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458B7261CE47A9500EFAEE3 /* NetworkOperations.swift */; };
 		F458B7291CE4981200EFAEE3 /* ForcastServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458B7281CE4981200EFAEE3 /* ForcastServices.swift */; };
+		F458B72B1CE4F09A00EFAEE3 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F458B72A1CE4F09A00EFAEE3 /* LocationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F4383F6D1CE25ECE0057660F /* CurrentWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		F458B7261CE47A9500EFAEE3 /* NetworkOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperations.swift; sourceTree = "<group>"; };
 		F458B7281CE4981200EFAEE3 /* ForcastServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForcastServices.swift; sourceTree = "<group>"; };
+		F458B72A1CE4F09A00EFAEE3 /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				F458B7261CE47A9500EFAEE3 /* NetworkOperations.swift */,
 				F458B7281CE4981200EFAEE3 /* ForcastServices.swift */,
+				F458B72A1CE4F09A00EFAEE3 /* LocationHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F458B72B1CE4F09A00EFAEE3 /* LocationHelper.swift in Sources */,
 				F458B7271CE47A9500EFAEE3 /* NetworkOperations.swift in Sources */,
 				F4383F591CE25A1A0057660F /* ViewController.swift in Sources */,
 				F458B7291CE4981200EFAEE3 /* ForcastServices.swift in Sources */,
@@ -298,6 +302,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Stormy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TIKWORX.Stormy;
@@ -309,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Stormy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TIKWORX.Stormy;

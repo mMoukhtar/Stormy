@@ -7,63 +7,153 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
+    // MARK: - Outlets
+    
     @IBOutlet weak var lblCurrentTemperature: UILabel?
     @IBOutlet weak var lblCurrentHumedity: UILabel?
     @IBOutlet weak var lblCurrentRainPercent: UILabel?
     @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
     @IBOutlet weak var lblCurrentSummary: UILabel?
     @IBOutlet weak var lblCurrentLocation: UILabel?
+    @IBOutlet weak var lblActivityIndicator: UIActivityIndicatorView?
+    @IBOutlet weak var btnRefresh: UIButton?
     
-    private let forcastAPIKey = "f37f728992536a55e222320945d7d59a"
+    // MARK: - Stored Properties
+    
+    var locationManager: CLLocationManager?
+    private var currentLocation: Location?
     private let coordinates: (Lat: Double, Long: Double) = (37.8267,-122.423)
+    private let forcastAPIKey = "f37f728992536a55e222320945d7d59a"
+    
+    
+    // MARK: - View Initializing Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Get Weather Forcast
-        resetViewValues()
+        // update Current Location
+        updatingLocation()
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    // Change The Style of Status Bar
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
     
     
     //MARK: - View Controllers Events
+    
     @IBAction func btnRefreshTouchUpInside(sender: AnyObject) {
-        resetViewValues()
+        btnRefresh?.hidden = true
+        updatingLocation()
     }
     
     //MARK: - Helper Methods
-    private func resetViewValues() {
+    
+    private func getViewValues() {
         let forcastServices = ForcastServices(APIKey: forcastAPIKey)
-        forcastServices.getCurrentWeather(coordinates.Long, lat: coordinates.Lat) {
-            (let currently) in
-            if let currentWeather = currently {
-                // Return to main thread
-                dispatch_async(dispatch_get_main_queue()) {
-                    if let temperature = currentWeather.temperature {
-                        self.lblCurrentTemperature?.text = "\(temperature)º"
+        if let (lat, long) = currentLocation?.coordinates {
+            toggleActivityIndicator(toggleOff: false)
+            forcastServices.getCurrentWeather(long, lat: lat) {
+                (let currently) in
+                if let currentWeather = currently {
+                    // Return to main thread
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if let temperature = currentWeather.temperature {
+                            self.lblCurrentTemperature?.text = "\(temperature)º"
+                        }
+                        if let humedity = currentWeather.humidity {
+                            self.lblCurrentHumedity?.text = "\(humedity)%"
+                        }
+                        if let precipProbability = currentWeather.precipProbability {
+                            self.lblCurrentRainPercent?.text = "\(precipProbability)%"
+                        }
+                        if let iconImage = currentWeather.icon {
+                            self.imgCurrentWeatherIcon?.image = iconImage
+                        }
+                        if let summary = currentWeather.summary {
+                            self.lblCurrentSummary?.text = summary
+                        }
+                        self.lblCurrentLocation?.text = "Current Location"
+                        self.toggleActivityIndicator(toggleOff: true)
                     }
-                    if let humedity = currentWeather.humidity {
-                        self.lblCurrentHumedity?.text = "\(humedity)%"
-                    }
-                    if let precipProbability = currentWeather.precipProbability {
-                        self.lblCurrentRainPercent?.text = "\(precipProbability)%"
-                    }
-                    if let iconImage = currentWeather.icon {
-                        self.imgCurrentWeatherIcon?.image = iconImage
-                    }
-                    if let summary = currentWeather.summary {
-                        self.lblCurrentSummary?.text = summary
-                    }
-                    self.lblCurrentLocation?.text = "Current Location"
+                }
+            }
+        } else {
+            toggleActivityIndicator(toggleOff: true)
+            print("No Valid Coordinates")
+        }
+    }
+    
+    private func toggleActivityIndicator(toggleOff toggleOff: Bool) {
+        lblActivityIndicator?.hidden = toggleOff
+        btnRefresh?.hidden = !toggleOff
+    }
+    
+    func updatingLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+    }
+    
+    
+    //MARK: - Core Location Manager Delegate Methods
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse {
+            print("Authorized when in use")
+            if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
+                print("Authorized when in use")
+                if CLLocationManager.isRangingAvailable() {
+                    print("Ranging available via bluetooth")
                 }
             }
         }
     }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("location updated")
+        let location = locations[0]
+        currentLocation = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, name: location.description)
+        print("Current Location \(currentLocation?.coordinates)")
+        manager.stopUpdatingLocation()
+        // Get Weather Forcast
+        getViewValues()
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error.localizedDescription)
+        print(error.localizedFailureReason)
+        print(error.localizedRecoveryOptions)
+        print(error.localizedRecoverySuggestion)
+        manager.stopUpdatingLocation()
+        //No valid location
+    }
+    
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
