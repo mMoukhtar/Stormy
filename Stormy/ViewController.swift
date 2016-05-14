@@ -26,7 +26,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager?
     private var currentLocation: Location?
-    private let coordinates: (Lat: Double, Long: Double) = (37.8267,-122.423)
+//    private let coordinates: (Lat: Double, Long: Double) = (37.8267,-122.423)
     private let forcastAPIKey = "f37f728992536a55e222320945d7d59a"
     
     
@@ -56,7 +56,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - Helper Methods
     
-    private func getViewValues() {
+    func updatingLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+    }
+    
+    private func getViewValues(currentLocation location: String) {
         let forcastServices = ForcastServices(APIKey: forcastAPIKey)
         if let (lat, long) = currentLocation?.coordinates {
             toggleActivityIndicator(toggleOff: false)
@@ -80,7 +88,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         if let summary = currentWeather.summary {
                             self.lblCurrentSummary?.text = summary
                         }
-                        self.lblCurrentLocation?.text = "Current Location"
+                        self.lblCurrentLocation?.text = location
                         self.toggleActivityIndicator(toggleOff: true)
                     }
                 }
@@ -96,37 +104,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         btnRefresh?.hidden = !toggleOff
     }
     
-    func updatingLocation() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.startUpdatingLocation()
-    }
-    
-    
+
     //MARK: - Core Location Manager Delegate Methods
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
-            print("Authorized when in use")
-            if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
-                print("Authorized when in use")
-                if CLLocationManager.isRangingAvailable() {
-                    print("Ranging available via bluetooth")
-                }
-            }
-        }
-    }
-    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("location updated")
         let location = locations[0]
-        currentLocation = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, name: location.description)
+        currentLocation = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         print("Current Location \(currentLocation?.coordinates)")
         manager.stopUpdatingLocation()
         // Get Weather Forcast
-        getViewValues()
+        
+        currentLocation?.getGeoLocationFromCoordinates(location, addressFileds: [Location.AddressField.subAdministrativeArea, Location.AddressField.administrativeArea]) { (address, error) in
+            
+            //Get Current View Values
+            self.getViewValues(currentLocation: address)
+        }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -137,7 +129,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manager.stopUpdatingLocation()
         //No valid location
     }
-    
+
 
 }
 
