@@ -26,53 +26,51 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager?
     private var currentLocation: Location?
-//    private let coordinates: (Lat: Double, Long: Double) = (37.8267,-122.423)
+    private let clMGR: CLLocationManager = CLLocationManager()
     private let forcastAPIKey = "f37f728992536a55e222320945d7d59a"
     
     
     // MARK: - View Initializing Methods
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // update Current Location
         updatingLocation()
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     // Change The Style of Status Bar
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
     
-    
     //MARK: - View Controllers Events
     
     @IBAction func btnRefreshTouchUpInside(sender: AnyObject) {
         btnRefresh?.hidden = true
+        toggleActivityIndicator(toggleOff: false)
         updatingLocation()
     }
     
     //MARK: - Helper Methods
     
     func updatingLocation() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.startUpdatingLocation()
+        clMGR.delegate = self
+        clMGR.requestWhenInUseAuthorization()
+        clMGR.desiredAccuracy = kCLLocationAccuracyBest
+        clMGR.startUpdatingLocation()
     }
     
     private func getViewValues(currentLocation location: String) {
         let forcastServices = ForcastServices(APIKey: forcastAPIKey)
         if let (lat, long) = currentLocation?.coordinates {
-            toggleActivityIndicator(toggleOff: false)
             forcastServices.getCurrentWeather(long, lat: lat) {
                 (let currently) in
                 if let currentWeather = currently {
                     // Return to main thread
                     dispatch_async(dispatch_get_main_queue()) {
+                        print(currentWeather)
                         if let temperature = currentWeather.temperature {
                             self.lblCurrentTemperature?.text = "\(temperature)º"
                         }
@@ -115,9 +113,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Get Weather Forcast
         
         currentLocation?.getGeoLocationFromCoordinates(location, addressFileds: [Location.AddressField.subAdministrativeArea, Location.AddressField.administrativeArea]) { (address, error) in
-            
-            //Get Current View Values
-            self.getViewValues(currentLocation: address)
+            //Return to the main thread
+            dispatch_async(dispatch_get_main_queue()) { 
+                //Get Current View Values
+                self.toggleActivityIndicator(toggleOff: false)
+                self.getViewValues(currentLocation: address)
+            }
         }
     }
     
